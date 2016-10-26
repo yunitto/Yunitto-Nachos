@@ -67,12 +67,10 @@ Semaphore::P()
     IntStatus oldLevel = interrupt->SetLevel(IntOff);	// disable interrupts
     
     while (value == 0) { 			// semaphore not available
-	queue->Append((void *)currentThread);	// so go to sleep
+    	queue->Append((void *)currentThread);	// so go to sleep
 	currentThread->Sleep();
     } 
-    value--; 					// semaphore available, 
-						// consume its value
-    
+    value--; 					// semaphore available, 						// consume its value
     DEBUG ('s', "thread %s acquires semaphore %s\n", currentThread->getName(),
 	   this->getName());
 
@@ -94,8 +92,9 @@ Semaphore::V()
     IntStatus oldLevel = interrupt->SetLevel(IntOff);
 
     thread = (Thread *)queue->Remove();
-    if (thread != NULL)   // make thread ready, consuming the V immediately
+    if (thread != NULL){   // make thread ready, consuming the V immediately
 	scheduler->ReadyToRun(thread);
+    }
     value++;
 
     DEBUG ('s', "thread %s releases semaphore %s\n", currentThread->getName(),
@@ -155,7 +154,7 @@ void Lock::Acquire()
 void Lock::Release()
 {
   IntStatus oldLevel = interrupt->SetLevel(IntOff); //disable interrupt
-  if (isLock && isHeldByCurrentThread()) 
+  if (isLock && isHeldByCurrentThread()) // if Lock is occupied && lock_owner == currentThread 
   {
     status->V();
     isLock = 0;

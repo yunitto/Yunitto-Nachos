@@ -34,7 +34,7 @@ int PageOutPageIn(int vpn);
 
 //----------------------------------------------------------------------
 // DoPageOut
-//      Actually pages out a phyPage to it's swapfile.
+//      Actually pages out a phyPage to its swapfile.
 //----------------------------------------------------------------------
 
 void DoPageOut(int phyPage);

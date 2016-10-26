@@ -137,7 +137,7 @@ void Thread::Join(Thread *forked) {
 // Thread::JoinHit
 //	Allows the function Join to access the semaphore in the thread's
 //	class that is being joined, in order to let it know that Join
-//	has been called.  Also it sends it's semaphore so it can know
+//	has been called.  Also it sends its semaphore so it can know
 //	if the joined thread has gotten to it's finish state yet.
 //----------------------------------------------------------------------
 
@@ -197,7 +197,6 @@ Thread::Finish ()
     if (will_joinP == 0) {		// this thread will not be joined
 	(void) interrupt->SetLevel(IntOff);
 	ASSERT(this == currentThread);
-
 	DEBUG('t', "Finishing thread %s #%i\n", getName(), pid);
 
 	threadToBeDestroyed = currentThread;
